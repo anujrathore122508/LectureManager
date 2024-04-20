@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "808711506435",
+    "project_id": "lecture-manager-a3098",
+    "storage_bucket": "lecture-manager-a3098.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:808711506435:android:f3ebdaab09ba0f42791c36",
+        "android_client_info": {
+          "package_name": "com.example.lecturemanager"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNj4btbKal7XOqwxaO1xDKOm7YGn5PAtE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
