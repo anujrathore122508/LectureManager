@@ -1,11 +1,12 @@
 package com.example.lecturemanager
 
 import android.Manifest
-import android.content.Intent
+import android.app.DatePickerDialog
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -16,7 +17,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.lecturemanager.databinding.ActivityMainBinding
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
@@ -24,8 +24,10 @@ import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.auth
 import java.util.concurrent.TimeUnit
 import com.google.firebase.Firebase
-import com.google.firebase.FirebaseApp
-import com.google.firebase.initialize
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,13 +35,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+        // Set a click listener on the "Select Date" button
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 //Firebase.initialize(this)
-        FirebaseApp.initializeApp(this)
+//        FirebaseApp.initializeApp(this)
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
@@ -52,7 +58,8 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-        sendsms()
+//        sendsms()
+
         askNotificationPermission()
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
@@ -99,6 +106,7 @@ class MainActivity : AppCompatActivity() {
 //                resendToken = token
             }
         }
+
     }
     private fun askNotificationPermission() {
         // This is only necessary for API level >= 33 (TIRAMISU)
@@ -147,7 +155,7 @@ class MainActivity : AppCompatActivity() {
 //            }.show()
         }
     }
-    fun sendsms()
+ fun sendsms()
     {
 
         val options = PhoneAuthOptions.newBuilder(Firebase.auth)
