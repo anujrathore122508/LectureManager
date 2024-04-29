@@ -1,26 +1,23 @@
 package com.example.lecturemanager.ui.home
 
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.lecturemanager.R
 import com.example.lecturemanager.databinding.FragmentHomeBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.internal.ContextUtils.getActivity
-import java.security.AccessController.getContext
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-//import com.google.android.material.snackbar.Snackbar
+
 
 class HomeFragment : Fragment() {
 
@@ -46,24 +43,42 @@ class HomeFragment : Fragment() {
             textView.text = it
 
         }
-        _binding!!.addLecture.setOnClickListener(
-            { view ->
+        _binding!!.addLecture.setOnClickListener { view ->
             val dialog = BottomSheetDialog(requireContext())
 
-                showDatePicker()
-            // on below line we are inflating a layout file which we have created.
-            val view = layoutInflater.inflate(R.layout.add_lecture_bottomsheet,null)
 
+            // on below line we are inflating a layout file which we have created.
+            val view = layoutInflater.inflate(R.layout.add_lecture_bottomsheet, null)
             // on below line we are creating a variable for our button
             // which we are using to dismiss our dialog.
-            val btnClose = view.findViewById<Button>(R.id.idBtnSubmit)
+            val btnClose1= view.findViewById<Button>(R.id.idBtnDatePicker)
 
+            btnClose1.setOnClickListener()
+            {
+             showDatePicker(view)
+            }
+
+            val btnClose2= view.findViewById<Button>(R.id.idBtnStartTime)
+
+            btnClose2.setOnClickListener()
+            {
+                timepicker(view)
+            }
+
+            val btnClose3= view.findViewById<Button>(R.id.idBtnEndTime)
+
+            btnClose3.setOnClickListener()
+            {
+                timepicker2(view)
+            }
+
+            val btnClose = view.findViewById<Button>(R.id.idBtnSubmit)
             // on below line we are adding on click listener
             // for our dismissing the dialog button.
             btnClose.setOnClickListener {
                 // on below line we are calling a dismiss
                 // method to close our dialog.
-                dialog.dismiss()
+               dialog.dismiss()
             }
             // below line is use to set cancelable to avoid
             // closing of dialog box when clicking on the screen.
@@ -76,7 +91,7 @@ class HomeFragment : Fragment() {
             // on below line we are calling
             // a show method to display a dialog.
             dialog.show()
-        })
+        }
 
         return root
 
@@ -90,12 +105,15 @@ class HomeFragment : Fragment() {
 }
 
 
-private fun showDatePicker() {
-        // Create a DatePickerDialog
+private fun showDatePicker(view: View) {
+    // Create a DatePickerDialog
     lateinit var tvSelectedDate: TextView
     val calendar = Calendar.getInstance()
+    view.let {
+
+
         val datePickerDialog = DatePickerDialog(
-            getActivity(),{ DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int ->
+            view.context, { DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int ->
                 // Create a new Calendar instance to hold the selected date
                 val selectedDate = Calendar.getInstance()
                 // Set the selected date using the values received from the DatePicker dialog
@@ -114,3 +132,40 @@ private fun showDatePicker() {
         // Show the DatePicker dialog
         datePickerDialog.show()
     }
+}
+
+   private fun timepicker(view: View) {
+
+       lateinit var selectedtime: TextView
+       view.let {
+
+
+           val cal = Calendar.getInstance()
+           val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
+               cal.set(Calendar.HOUR_OF_DAY, hour)
+               cal.set(Calendar.MINUTE, minute)
+               selectedtime.text = SimpleDateFormat("HH:mm").format(cal.time)
+           }
+           val timePickerDialog= TimePickerDialog(view.context ,timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true)
+           timePickerDialog.show()
+       }
+   }
+private fun timepicker2(view: View) {
+
+    lateinit var selectedtime: TextView
+    view.let {
+
+
+        val cal = Calendar.getInstance()
+        val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
+            cal.set(Calendar.HOUR_OF_DAY, hour)
+            cal.set(Calendar.MINUTE, minute)
+            selectedtime.text = SimpleDateFormat("HH:mm").format(cal.time)
+        }
+        val timePickerDialog= TimePickerDialog(view.context ,timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true)
+        timePickerDialog.show()
+    }
+}
+
+
+

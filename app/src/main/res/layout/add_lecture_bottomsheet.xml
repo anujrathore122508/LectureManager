@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="3000dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:orientation="vertical">
+
+        <!--image view for displaying course image-->
+
+
+        <!--text view for displaying course name-->
+
+        <!--text view for displaying course tracks-->
+
+
+        <!--text view for displaying course duration-->
+
+
+        <!--button for dismissing our dialog-->
+        <Button
+            android:id="@+id/idBtnDatePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Add Date"
+            android:textAllCaps="true"
+            android:layout_below="@id/btnDatePicker"
+            android:layout_centerHorizontal="true"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/idBtnStartTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Start Time"
+            android:textAllCaps="true"
+            android:textSize="18sp"
+            />
+
+
+        <Button
+            android:id="@+id/idBtnEndTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="End Time"
+            android:textAllCaps="true"
+            android:textSize="18sp"/>
+
+        <Button
+            android:id="@+id/idBtnSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Submit"
+            android:textAllCaps="true"
+            android:padding="16dp"
+            android:textSize="18sp"/>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
