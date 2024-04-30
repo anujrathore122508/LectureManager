@@ -51,25 +51,25 @@ class HomeFragment : Fragment() {
             val view = layoutInflater.inflate(R.layout.add_lecture_bottomsheet, null)
             // on below line we are creating a variable for our button
             // which we are using to dismiss our dialog.
-            val btnClose1= view.findViewById<Button>(R.id.idBtnDatePicker)
-
-            btnClose1.setOnClickListener()
+            val btnOpen1= view.findViewById<Button>(R.id.idBtnDatePicker)
+            val DateTextview=view.findViewById<TextView>(R.id.date)
+            btnOpen1.setOnClickListener()
             {
-             showDatePicker(view)
+             showDatePicker(view,DateTextview)
             }
 
             val btnClose2= view.findViewById<Button>(R.id.idBtnStartTime)
-
+            var timetextview=view.findViewById<Button>(R.id.StartTime)
             btnClose2.setOnClickListener()
             {
-                timepicker(view)
+                timepicker(view,timetextview)
             }
 
             val btnClose3= view.findViewById<Button>(R.id.idBtnEndTime)
-
+            var timetextview1=view.findViewById<Button>(R.id.endtime)
             btnClose3.setOnClickListener()
             {
-                timepicker2(view)
+                timepicker2(view,timetextview1)
             }
 
             val btnClose = view.findViewById<Button>(R.id.idBtnSubmit)
@@ -105,12 +105,11 @@ class HomeFragment : Fragment() {
 }
 
 
-private fun showDatePicker(view: View) {
+private fun showDatePicker(view: View,view1:TextView) {
     // Create a DatePickerDialog
-    lateinit var tvSelectedDate: TextView
+
     val calendar = Calendar.getInstance()
     view.let {
-
 
         val datePickerDialog = DatePickerDialog(
             view.context, { DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int ->
@@ -123,8 +122,8 @@ private fun showDatePicker(view: View) {
                 // Format the selected date into a string
                 val formattedDate = dateFormat.format(selectedDate.time)
                 // Update the TextView to display the selected date with the "Selected Date: " prefix
-                tvSelectedDate.text = "Selected Date: $formattedDate"
-            },
+                view1.text = "Date: $formattedDate"
+                          },
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)
@@ -134,9 +133,9 @@ private fun showDatePicker(view: View) {
     }
 }
 
-   private fun timepicker(view: View) {
+   private fun timepicker(view: View,view2:TextView) {
 
-       lateinit var selectedtime: TextView
+
        view.let {
 
 
@@ -144,15 +143,15 @@ private fun showDatePicker(view: View) {
            val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
                cal.set(Calendar.HOUR_OF_DAY, hour)
                cal.set(Calendar.MINUTE, minute)
-               selectedtime.text = SimpleDateFormat("HH:mm").format(cal.time)
+               val formattedtime=SimpleDateFormat("HH:mm").format(cal.time)
+               view2.text = "Start Time: $formattedtime"
            }
            val timePickerDialog= TimePickerDialog(view.context ,timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true)
            timePickerDialog.show()
        }
    }
-private fun timepicker2(view: View) {
+private fun timepicker2(view: View,view3:TextView) {
 
-    lateinit var selectedtime: TextView
     view.let {
 
 
@@ -160,7 +159,8 @@ private fun timepicker2(view: View) {
         val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
             cal.set(Calendar.HOUR_OF_DAY, hour)
             cal.set(Calendar.MINUTE, minute)
-            selectedtime.text = SimpleDateFormat("HH:mm").format(cal.time)
+            val formattedtime3= SimpleDateFormat("HH:mm").format(cal.time)
+            view3.text = "End Time: $formattedtime3"
         }
         val timePickerDialog= TimePickerDialog(view.context ,timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true)
         timePickerDialog.show()
