@@ -2,17 +2,23 @@ package com.example.lecturemanager.ui.home
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.room.Room
 import com.example.lecturemanager.R
 import com.example.lecturemanager.databinding.FragmentHomeBinding
+import com.example.lecturemanager.ui.home.database.AppDatabase
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import io.grpc.Context
+import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -35,6 +41,7 @@ class HomeFragment : Fragment() {
         val homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
 
+
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -43,6 +50,8 @@ class HomeFragment : Fragment() {
             textView.text = it
 
         }
+
+
         _binding!!.addLecture.setOnClickListener { view ->
             val dialog = BottomSheetDialog(requireContext())
 
@@ -51,25 +60,30 @@ class HomeFragment : Fragment() {
             val view = layoutInflater.inflate(R.layout.add_lecture_bottomsheet, null)
             // on below line we are creating a variable for our button
             // which we are using to dismiss our dialog.
-            val btnOpen1= view.findViewById<Button>(R.id.idBtnDatePicker)
-            val DateTextview=view.findViewById<TextView>(R.id.date)
+
+            val editText = view.findViewById<EditText>(R.id.editText)
+            editText.requestFocus()
+
+
+            val btnOpen1 = view.findViewById<Button>(R.id.idBtnDatePicker)
+            val DateTextview = view.findViewById<TextView>(R.id.date)
             btnOpen1.setOnClickListener()
             {
-             showDatePicker(view,DateTextview)
+                showDatePicker(view, DateTextview)
             }
 
-            val btnClose2= view.findViewById<Button>(R.id.idBtnStartTime)
-            var timetextview=view.findViewById<Button>(R.id.StartTime)
+            val btnClose2 = view.findViewById<Button>(R.id.idBtnStartTime)
+            var timetextview = view.findViewById<Button>(R.id.StartTime)
             btnClose2.setOnClickListener()
             {
-                timepicker(view,timetextview)
+                timepicker(view, timetextview)
             }
 
-            val btnClose3= view.findViewById<Button>(R.id.idBtnEndTime)
-            var timetextview1=view.findViewById<Button>(R.id.endtime)
+            val btnClose3 = view.findViewById<Button>(R.id.idBtnEndTime)
+            var timetextview1 = view.findViewById<Button>(R.id.endtime)
             btnClose3.setOnClickListener()
             {
-                timepicker2(view,timetextview1)
+                timepicker2(view, timetextview1)
             }
 
             val btnClose = view.findViewById<Button>(R.id.idBtnSubmit)
@@ -78,7 +92,7 @@ class HomeFragment : Fragment() {
             btnClose.setOnClickListener {
                 // on below line we are calling a dismiss
                 // method to close our dialog.
-               dialog.dismiss()
+                dialog.dismiss()
             }
             // below line is use to set cancelable to avoid
             // closing of dialog box when clicking on the screen.
@@ -92,7 +106,6 @@ class HomeFragment : Fragment() {
             // a show method to display a dialog.
             dialog.show()
         }
-
         return root
 
     }
@@ -150,6 +163,7 @@ private fun showDatePicker(view: View,view1:TextView) {
            timePickerDialog.show()
        }
    }
+
 private fun timepicker2(view: View,view3:TextView) {
 
     view.let {
@@ -166,6 +180,4 @@ private fun timepicker2(view: View,view3:TextView) {
         timePickerDialog.show()
     }
 }
-
-
 

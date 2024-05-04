@@ -1,12 +1,9 @@
 package com.example.lecturemanager
 
 import android.Manifest
-import android.app.DatePickerDialog
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -17,23 +14,18 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.lecturemanager.databinding.ActivityMainBinding
+import com.example.lecturemanager.ui.home.database.DatabaseBuilder
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
-import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
-import com.google.firebase.auth.auth
-import java.util.concurrent.TimeUnit
-import com.google.firebase.Firebase
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -107,7 +99,25 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+
+        val userDao = DatabaseBuilder.getInstance(applicationContext).userDao()
+
+        GlobalScope.launch {
+            // Insert a user
+            val user = com.example.lecturemanager.ui.home.datapackage.User(name = "John")
+            userDao.insert(user)
+
+            // Retrieve all users
+            val users = userDao.getAllUsers()
+            for (user in users) {
+                println("User: ${user.id}, ${user.name}")
+            }
+        }
+
+
     }
+
+
     private fun askNotificationPermission() {
         // This is only necessary for API level >= 33 (TIRAMISU)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -123,6 +133,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
@@ -154,16 +165,19 @@ class MainActivity : AppCompatActivity() {
 //                }
 //            }.show()
         }
-    }
- fun sendsms()
-    {
 
-        val options = PhoneAuthOptions.newBuilder(Firebase.auth)
-            .setPhoneNumber("9424910844") // Phone number to verify
-            .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
-            .setActivity(this) // Activity (for callback binding)
-            .setCallbacks(callbacks) // OnVerificationStateChangedCallbacks
-            .build()
-        PhoneAuthProvider.verifyPhoneNumber(options)
+
     }
 }
+//        fun sendsms() {
+//
+//            val options = PhoneAuthOptions.newBuilder(Firebase.auth)
+//                .setPhoneNumber("9424910844") // Phone number to verify
+//                .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+//                .setActivity(this) // Activity (for callback binding)
+//                .setCallbacks(callbacks) // OnVerificationStateChangedCallbacks
+//                .build()
+//            PhoneAuthProvider.verifyPhoneNumber(options)
+//        }
+//    }
+

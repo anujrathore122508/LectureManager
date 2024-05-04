@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.lecturemanager.databinding.FragmentProfileBinding
 
-class ProfileFragment : Fragment() {
-
+class ProfileFragment : Fragment()
+{
     private var _binding: FragmentProfileBinding? = null
 
     // This property is only valid between onCreateView and
@@ -21,17 +21,18 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
+
+
     ): View {
         val profileViewModel =
-        ViewModelProvider(this)[ProfileViewModel::class.java]
-
+            ViewModelProvider(this)[ProfileViewModel::class.java]
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
         val textView: TextView = binding.textProfile
         profileViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
+
         return root
     }
 
@@ -40,3 +41,5 @@ class ProfileFragment : Fragment() {
         _binding = null
     }
 }
+
+
