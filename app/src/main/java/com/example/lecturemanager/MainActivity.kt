@@ -36,8 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//Firebase.initialize(this)
-//        FirebaseApp.initializeApp(this)
+
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
@@ -56,31 +55,11 @@ class MainActivity : AppCompatActivity() {
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                // This callback will be invoked in two situations:
-                // 1 - Instant verification. In some cases the phone number can be instantly
-                //     verified without needing to send or enter a verification code.
-                // 2 - Auto-retrieval. On some devices Google Play services can automatically
-                //     detect the incoming verification SMS and perform verification without
-                //     user action.
 
-//                Log.d(TAG, "onVerificationCompleted:$credential")
-//                signInWithPhoneAuthCredential(credential)
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
-                // This callback is invoked in an invalid request for verification is made,
-                // for instance if the the phone number format is not valid.
-//                Log.w(TAG, "onVerificationFailed", e)
 
-//                if (e is FirebaseAuthInvalidCredentialsException) {
-//                    // Invalid request
-//                } else if (e is FirebaseTooManyRequestsException) {
-//                    // The SMS quota for the project has been exceeded
-//                } else if (e is FirebaseAuthMissingActivityForRecaptchaException) {
-//                    // reCAPTCHA verification attempted with null Activity
-//                }
-
-                // Show a message and update the UI
             }
 
 
@@ -98,8 +77,6 @@ class MainActivity : AppCompatActivity() {
 //                resendToken = token
             }
         }
-
-
         val userDao = DatabaseBuilder.getInstance(applicationContext).userDao()
 
         GlobalScope.launch {
@@ -113,7 +90,6 @@ class MainActivity : AppCompatActivity() {
                 println("User: ${user.id}, ${user.name}")
             }
         }
-
 
     }
 
@@ -168,6 +144,8 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+
 }
 //        fun sendsms() {
 //
