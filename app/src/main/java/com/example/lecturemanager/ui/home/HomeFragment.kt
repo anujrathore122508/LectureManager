@@ -3,19 +3,21 @@ package com.example.lecturemanager.ui.home
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.room.Room
+//import androidx.room.Room
 import com.example.lecturemanager.R
 import com.example.lecturemanager.databinding.FragmentHomeBinding
-import com.example.lecturemanager.ui.home.database.AppDatabase
+//import com.example.lecturemanager.ui.home.database.AppDatabase
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import io.grpc.Context
 import org.w3c.dom.Text
@@ -37,6 +39,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
+
     ): View {
         val homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
@@ -52,14 +55,17 @@ class HomeFragment : Fragment() {
         }
 
 
-        _binding!!.addLecture.setOnClickListener { view ->
-            val dialog = BottomSheetDialog(requireContext())
 
+
+            _binding!!.addLecture.setOnClickListener { view ->
+            val dialog = BottomSheetDialog(requireContext())
 
             // on below line we are inflating a layout file which we have created.
             val view = layoutInflater.inflate(R.layout.add_lecture_bottomsheet, null)
             // on below line we are creating a variable for our button
             // which we are using to dismiss our dialog.
+
+
 
             val editText = view.findViewById<EditText>(R.id.editText)
             editText.requestFocus()
@@ -105,16 +111,19 @@ class HomeFragment : Fragment() {
             // on below line we are calling
             // a show method to display a dialog.
             dialog.show()
+
+
         }
         return root
-
     }
+
 
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
 }
 
 

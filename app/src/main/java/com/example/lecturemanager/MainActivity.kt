@@ -14,7 +14,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.lecturemanager.databinding.ActivityMainBinding
-import com.example.lecturemanager.ui.home.database.DatabaseBuilder
+//import com.example.lecturemanager.ui.home.database.DatabaseBuilder
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
@@ -77,19 +77,19 @@ class MainActivity : AppCompatActivity() {
 //                resendToken = token
             }
         }
-        val userDao = DatabaseBuilder.getInstance(applicationContext).userDao()
-
-        GlobalScope.launch {
-            // Insert a user
-            val user = com.example.lecturemanager.ui.home.datapackage.User(name = "John")
-            userDao.insert(user)
-
-            // Retrieve all users
-            val users = userDao.getAllUsers()
-            for (user in users) {
-                println("User: ${user.id}, ${user.name}")
-            }
-        }
+//        val userDao = DatabaseBuilder.getInstance(applicationContext).userDao()
+//
+//        GlobalScope.launch {
+//            // Insert a user
+//            val user = com.example.lecturemanager.ui.home.datapackage.User(name = "John")
+//            userDao.insert(user)
+//
+//            // Retrieve all users
+//            val users = userDao.getAllUsers()
+//            for (user in users) {
+//                println("User: ${user.id}, ${user.name}")
+//            }
+//        }
 
     }
 
