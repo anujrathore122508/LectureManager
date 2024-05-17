@@ -13,7 +13,11 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
 import com.example.lecturemanager.databinding.ActivityMainBinding
+import com.example.lecturemanager.ui.home.database.AppDatabase
+import com.example.lecturemanager.ui.home.database.DatabaseBuilder
 //import com.example.lecturemanager.ui.home.database.DatabaseBuilder
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
@@ -77,22 +81,10 @@ class MainActivity : AppCompatActivity() {
 //                resendToken = token
             }
         }
-//        val userDao = DatabaseBuilder.getInstance(applicationContext).userDao()
-//
-//        GlobalScope.launch {
-//            // Insert a user
-//            val user = com.example.lecturemanager.ui.home.datapackage.User(name = "John")
-//            userDao.insert(user)
-//
-//            // Retrieve all users
-//            val users = userDao.getAllUsers()
-//            for (user in users) {
-//                println("User: ${user.id}, ${user.name}")
-//            }
-//        }
+
+
 
     }
-
 
     private fun askNotificationPermission() {
         // This is only necessary for API level >= 33 (TIRAMISU)

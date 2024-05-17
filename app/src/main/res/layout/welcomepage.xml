@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@drawable/welcomepage_background">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <ImageView
+
+            android:id="@+id/ImageView"
+            android:layout_width="250dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginBottom="700dp"
+            android:src="@drawable/aaaaasssssssaaaaaa"
+            />
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ImageView"
+            android:text="Welcome to Lecture Manager!"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textColor="#332D2D"
+            android:textSize="24sp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-680dp"/>
+
+        <EditText
+            android:id="@+id/firstNameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/titleTextView"
+            android:layout_marginTop="40dp"
+            android:hint="First Name"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:background="@drawable/rounded_corner"
+            android:padding="18dp"
+            />
+
+        <EditText
+            android:id="@+id/lastNameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/firstNameEditText"
+            android:layout_marginTop="20dp"
+            android:hint="Last Name"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:background="@drawable/rounded_corner"
+            android:padding="18dp"/>
+
+        <Button
+            android:id="@+id/submitButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lastNameEditText"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:text="Submit"
+            android:background="@drawable/rounded_corner"
+            />
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

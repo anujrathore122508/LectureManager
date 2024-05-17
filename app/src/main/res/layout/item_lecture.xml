@@ -1,0 +1,58 @@
+<androidx.cardview.widget.CardView
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_margin="8dp">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/rounded_corner"
+    android:padding="17dp">
+
+    <TextView
+        android:id="@+id/lectureNameTextview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="Lecture Name"
+        android:textAllCaps="true"/>
+
+    <TextView
+        android:id="@+id/startTimeTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Start Time" />
+
+    <TextView
+        android:id="@+id/endTimeTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="End Time" />
+
+    <TextView
+        android:id="@+id/dayTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Day:"
+        android:layout_marginLeft="300dp"
+  />
+
+
+</LinearLayout>
+
+<!-- Add ImageView for three-dot icon -->
+<ImageView
+    android:id="@+id/threeDotMenu"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/baseline_more_vert_24"
+    android:contentDescription="More options"
+    android:padding="16dp"
+    android:layout_gravity="end" />
+
+
+
+</androidx.cardview.widget.CardView>
+
