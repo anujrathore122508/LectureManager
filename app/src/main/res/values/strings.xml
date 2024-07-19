@@ -30,4 +30,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="lecture_channel_name">Lecture Notifications</string>
+    <string name="lecture_channel_description">Notifications for upcoming lectures</string>
+
 </resources>

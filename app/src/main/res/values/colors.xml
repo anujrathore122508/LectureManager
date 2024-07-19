@@ -7,4 +7,6 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="selected_day_background">#FF4081</color>
+    <color name="default_day_background">#E0E0E0</color>
 </resources>

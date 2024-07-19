@@ -90,7 +90,7 @@
 
         <Spinner
             android:id="@+id/daySpinner"
-            android:layout_width="1mm"
+            android:layout_width="15dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="8dp"
@@ -99,7 +99,7 @@
             android:textAlignment="center"
             android:entries="@array/days"
             android:textColor="@color/black"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/idBtnSelectDay"

@@ -22,6 +22,8 @@ composeBom = "2023.08.00"
 activity = "1.8.0"
 roomCommon = "2.6.1"
 roomRuntimeAndroid = "2.7.0-alpha01"
+databindingRuntime = "8.4.0"
+mediationTestSuite = "3.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -52,6 +54,8 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-room-common = { group = "androidx.room", name = "room-common", version.ref = "roomCommon" }
 androidx-room-runtime-android = { group = "androidx.room", name = "room-runtime-android", version.ref = "roomRuntimeAndroid" }
+androidx-databinding-runtime = { group = "androidx.databinding", name = "databinding-runtime", version.ref = "databindingRuntime" }
+mediation-test-suite = { group = "com.google.android.ads", name = "mediation-test-suite", version.ref = "mediationTestSuite" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -1,6 +1,8 @@
 package com.example.lecturemanager
 
 import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -9,6 +11,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getString
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -22,6 +26,7 @@ import com.example.lecturemanager.ui.home.database.DatabaseBuilder
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
+import io.grpc.Context
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -35,7 +40,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
+        createNotificationChannel()
         // Set a click listener on the "Select Date" button
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -66,26 +71,8 @@ class MainActivity : AppCompatActivity() {
 
             }
 
-
-            override fun onCodeSent(
-                verificationId: String,
-                token: PhoneAuthProvider.ForceResendingToken,
-            ) {
-//                // The SMS verification code has been sent to the provided phone number, we
-//                // now need to ask the user to enter the code and then construct a credential
-//                // by combining the code with a verification ID.
-//                Log.d(TAG, "onCodeSent:$verificationId")
-//
-//                // Save verification ID and resending token so we can use them later
-//                storedVerificationId = verificationId
-//                resendToken = token
-            }
         }
-
-
-
     }
-
     private fun askNotificationPermission() {
         // This is only necessary for API level >= 33 (TIRAMISU)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -110,44 +97,24 @@ class MainActivity : AppCompatActivity() {
                 .show()
         } else {
             finish()
-//            Toast.makeText(
-//                this, "${getString(R.string.app_name)} can't post notifications without Notification permission",
-//                Toast.LENGTH_LONG
-//            ).show()
-
-//            Snackbar.make(
-//                binding.root,
-//                String.format(
-//                    String.format(
-//                        "This permission is required",
-//                        getString(R.string.app_name)
-//                    )
-//                ),
-//                Snackbar.LENGTH_INDEFINITE
-//            ).setAction(getString(R.string.goto_settings)) {
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-//                    val settingsIntent: Intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
-//                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                        .putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
-//                    startActivity(settingsIntent)
-//                }
-//            }.show()
+//
         }
 
 
     }
-
-
+    fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = getString(R.string.lecture_channel_name)
+            val descriptionText = getString(R.string.lecture_channel_description)
+            val importance = NotificationManager.IMPORTANCE_HIGH
+            val channel = NotificationChannel("lecture_channel", name, importance).apply {
+                description = descriptionText
+            }
+            val notificationManager: NotificationManager =
+                getSystemService(android.content.Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
 }
-//        fun sendsms() {
-//
-//            val options = PhoneAuthOptions.newBuilder(Firebase.auth)
-//                .setPhoneNumber("9424910844") // Phone number to verify
-//                .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
-//                .setActivity(this) // Activity (for callback binding)
-//                .setCallbacks(callbacks) // OnVerificationStateChangedCallbacks
-//                .build()
-//            PhoneAuthProvider.verifyPhoneNumber(options)
-//        }
-//    }
+
 

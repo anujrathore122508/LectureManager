@@ -1,23 +1,1 @@
-package com.example.lecturemanager.ui.home.dao
-
-
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
-
-import com.example.lecturemanager.ui.home.datapackage.User
-
-
-@Dao
-interface UserDao {
-    @Insert
-    suspend fun insert(user: User)
-
-    @Query("SELECT * FROM Lecture")
-    suspend fun getAllUsers(): List<User>
-
-    @Delete
-    suspend fun delete(user: User)
-}
-
+package com.example.lecturemanager.ui.home.daoimport androidx.lifecycle.LiveDataimport androidx.room.Daoimport androidx.room.Deleteimport androidx.room.Insertimport androidx.room.OnConflictStrategyimport androidx.room.Queryimport com.example.lecturemanager.ui.home.datapackage.Attendanceimport com.example.lecturemanager.ui.home.datapackage.Userimport kotlinx.coroutines.flow.Flow@Daointerface UserDao {    @Query("SELECT * FROM Lecture WHERE id = :id")    suspend fun getUserById(id: Long): User?    @Query("SELECT * FROM lecture")    fun getAllUsers(): LiveData<List<User>>    @Query("SELECT * FROM lecture")    fun getAAllUsers(): Flow<List<User>>    @Query("SELECT * FROM lecture WHERE lectureDay = :day")    fun getLecturesByDay(day: String): LiveData<List<User>>    @Insert    suspend fun insert(user: User): Long    @Delete    suspend fun delete(user: User)    // New methods for attendance    @Insert(onConflict = OnConflictStrategy.REPLACE)    suspend fun insertAttendance(attendance: Attendance)    @Query("SELECT COUNT(*) FROM attendance WHERE lectureId = :lectureId AND status = 'present'")    suspend fun getPresentCount(lectureId: Long): Int    @Query("SELECT COUNT(*) FROM attendance WHERE lectureId = :lectureId")    suspend fun getTotalCount(lectureId: Long): Int}

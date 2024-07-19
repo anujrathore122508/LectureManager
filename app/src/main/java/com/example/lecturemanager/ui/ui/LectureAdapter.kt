@@ -1,4 +1,5 @@
 package com.example.lecturemanager.ui.ui
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,8 @@ class LectureAdapter(private val onDeleteClickListener: OnDeleteClickListener) :
         holder.bind(lecture)
     }
 
+
+
     inner class LectureViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val lectureNameTextView: TextView = itemView.findViewById(R.id.lectureNameTextview)
         private val startTimeTextView: TextView = itemView.findViewById(R.id.startTimeTextView)
@@ -36,6 +39,7 @@ class LectureAdapter(private val onDeleteClickListener: OnDeleteClickListener) :
             threeDotMenu.setOnClickListener {
                 // Show popup menu
                 showPopupMenu()
+
             }
         }
 
