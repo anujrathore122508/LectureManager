@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/notification_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lecture Reminder!"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:textColor="@color/custom_text_color_primary"/>
+
+    <TextView
+        android:id="@+id/notification_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your lecture is about to start."
+        android:textColor="@color/custom_text_color_secondary"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <Button
+            android:id="@+id/notification_accept"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:text="Accept"
+            android:background="@drawable/button_background_accept"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:layout_marginEnd="9dp" />
+
+        <Button
+            android:id="@+id/notification_decline"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:text="Decline"
+            android:background="@drawable/button_background_decline"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+</LinearLayout>
+
+
