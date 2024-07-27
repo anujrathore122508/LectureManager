@@ -17,11 +17,11 @@
         android:label="@string/title_attendance"
         tools:layout="@layout/fragment_attendance" />
 
-    <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.lecturemanager.ui.notifications.NotificationsFragment"
-        android:label="@string/title_timetable"
-        tools:layout="@layout/fragment_notifications" />
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_notifications"-->
+<!--        android:name="com.example.lecturemanager.ui.notifications.NotificationsFragment"-->
+<!--        android:label="@string/title_timetable"-->
+<!--        tools:layout="@layout/fragment_notifications" />-->
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.example.lecturemanager.ui.profile.ProfileFragment"

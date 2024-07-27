@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -19,6 +20,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
+import androidx.work.Configuration
+import androidx.work.WorkManager
 import com.example.lecturemanager.databinding.ActivityMainBinding
 import com.example.lecturemanager.ui.home.database.AppDatabase
 import com.example.lecturemanager.ui.home.database.DatabaseBuilder
@@ -53,9 +56,10 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
+                R.id.navigation_home, R.id.navigation_dashboard
             )
         )
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 //        sendsms()
@@ -116,5 +120,3 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-
-

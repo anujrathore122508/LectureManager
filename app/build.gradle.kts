@@ -86,6 +86,7 @@ dependencies {
     implementation(libs.androidx.room.common)
     implementation(libs.androidx.room.runtime.android)
     implementation(libs.androidx.databinding.runtime)
+    implementation ("com.google.android.material:material:1.7.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

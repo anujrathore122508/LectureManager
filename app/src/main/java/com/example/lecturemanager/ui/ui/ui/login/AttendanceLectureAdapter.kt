@@ -9,37 +9,38 @@ import com.example.lecturemanager.databinding.ListItemAttendanceBinding
 
 import com.example.lecturemanager.ui.home.datapackage.AttendanceSummary
 
-class AttendanceLectureAdapter :
-    ListAdapter<AttendanceSummary, AttendanceLectureAdapter.AttendanceViewHolder>(AttendanceDiffCallback()) {
+class AttendanceLectureAdapter(private val onViewDetailsClick: (AttendanceSummary) -> Unit) : RecyclerView.Adapter<AttendanceLectureAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AttendanceViewHolder {
+    private var attendanceSummaryList: List<AttendanceSummary> = listOf()
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ListItemAttendanceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return AttendanceViewHolder(binding)
+        return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: AttendanceViewHolder, position: Int) {
-        val item = getItem(position)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = attendanceSummaryList[position]
         holder.bind(item)
     }
 
-    class AttendanceViewHolder(private val binding: ListItemAttendanceBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: AttendanceSummary) {
-            binding.LectureName.text = item.lectureName
-            binding.TotalLectures.text = "Total Lectures: ${item.totalLectures}"
-            binding.TotalPresent.text = "Total Present: ${item.totalPresent}"
-            binding.TotalAbsent.text = "Total Absent: ${item.totalAbsent}"
-            binding.AttendancePercentage.text = "Attendance: ${item.attendancePercentage}%"
-        }
+    override fun getItemCount(): Int = attendanceSummaryList.size
+
+    fun submitList(list: List<AttendanceSummary>) {
+        attendanceSummaryList = list
+        notifyDataSetChanged()
     }
 
-    class AttendanceDiffCallback : DiffUtil.ItemCallback<AttendanceSummary>() {
-        override fun areItemsTheSame(oldItem: AttendanceSummary, newItem: AttendanceSummary): Boolean {
-            return oldItem.lectureName == newItem.lectureName
-        }
+    inner class ViewHolder(private val binding: ListItemAttendanceBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: AttendanceSummary) {
+            binding.LectureName.text = item.lectureName
+            binding.AttendancePercentage.text = "${item.attendancePercentage}%"
+            binding.TotalPresent.text = "Present: ${item.totalPresent}"
+            binding.TotalAbsent.text = "Absent: ${item.totalAbsent}"
+            binding.TotalLectures.text = "Total Lectures: ${item.totalLectures}"
 
-        override fun areContentsTheSame(oldItem: AttendanceSummary, newItem: AttendanceSummary): Boolean {
-            return oldItem == newItem
+            binding.viewDetailsButton.setOnClickListener {
+                onViewDetailsClick(item)
+            }
         }
     }
 }

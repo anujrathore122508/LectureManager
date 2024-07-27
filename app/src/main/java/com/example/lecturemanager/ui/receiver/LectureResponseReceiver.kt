@@ -3,16 +3,21 @@ package com.example.lecturemanager.ui.receiver
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.util.Log
+import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import androidx.work.WorkManager
+import com.example.lecturemanager.R
+import com.example.lecturemanager.ui.home.dao.UserDao
+import com.example.lecturemanager.ui.home.database.AppDatabase
 import com.example.lecturemanager.ui.home.database.DatabaseBuilder
 import com.example.lecturemanager.ui.home.datapackage.Attendance
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-
-
 
 class LectureResponseReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
@@ -37,28 +42,35 @@ class LectureResponseReceiver : BroadcastReceiver() {
         context?.let {
             val updateIntent = Intent("ACTION_UPDATE_ATTENDANCE")
             LocalBroadcastManager.getInstance(it).sendBroadcast(updateIntent)
-            Log.d("LectureResponseReceiver", "Broadcasted ACTION_UPDATE_ATTENDANCE")
         }
+
+        // Ensure WorkManager entry is cancelled after handling the notification
+        WorkManager.getInstance(context!!).cancelAllWorkByTag("LectureNotification_$lectureId")
     }
 
     private fun updateAttendance(context: Context?, lectureId: Long, date: Long, status: String) {
-        context?.let { ctx ->
+        context?.let {
+            val database = DatabaseBuilder.getInstance(it)
+            val userDao = database.userDao()
+
             CoroutineScope(Dispatchers.IO).launch {
-                val database = DatabaseBuilder.getInstance(ctx)
-                val attendanceDao = database.userDao()
-                val attendance = Attendance(lectureId = lectureId, date = date, status = status)
-                attendanceDao.insertAttendance(attendance)
-                Log.d("LectureResponseReceiver", "Inserted attendance: $attendance")
+                val attendance = Attendance(
+                    id = 0,
+                    lectureId = lectureId,
+                    date = date,
+                    status = status
+                )
+                userDao.insertAttendance(attendance)
+                Log.d("LectureResponseReceiver", "Attendance updated: $status for lectureId: $lectureId on date: $date")
             }
         }
     }
 
     private fun cancelNotification(context: Context?, notificationId: Int) {
         context?.let {
-            with(NotificationManagerCompat.from(it)) {
-                cancel(notificationId)
-                Log.d("LectureResponseReceiver", "Cancelled notification with ID: $notificationId")
-            }
+            val notificationManager = NotificationManagerCompat.from(it)
+            notificationManager.cancel(notificationId)
+            Log.d("LectureResponseReceiver", "Notification cancelled for notificationId: $notificationId")
         }
     }
 }

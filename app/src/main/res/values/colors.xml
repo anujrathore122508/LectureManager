@@ -9,4 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="selected_day_background">#FF4081</color>
     <color name="default_day_background">#E0E0E0</color>
+    <color name="darkGrey">#A9A9A9</color>
+    <color name="custom_text_color_primary">#000000</color>
+    <color name="custom_text_color_secondary">#888888</color>
+
 </resources>

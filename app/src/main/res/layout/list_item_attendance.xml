@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+xmlns:app="http://schemas.android.com/apk/res-auto">
 
 <data>
     <!-- Data binding variables (if any) -->
@@ -18,7 +18,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="22sp"
-        android:textColor="@android:color/black"
         android:textStyle="bold"
         android:textAllCaps="true"
         android:gravity="center"
@@ -31,7 +30,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="18sp"
-        android:textColor="@android:color/black"
         android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/LectureName"
@@ -43,7 +41,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="18sp"
-        android:textColor="@android:color/black"
         android:gravity="center"
         android:background="@drawable/corner_present"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,20 +52,17 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="18sp"
-        android:textColor="@android:color/black"
         android:gravity="center"
         android:background="@drawable/corner_present"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/TotalPresent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-
     <TextView
         android:id="@+id/TotalLectures"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="18sp"
-        android:textColor="@android:color/black"
         android:gravity="center"
         android:background="@drawable/corner_present"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,6 +70,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <Button
+        android:id="@+id/viewDetailsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="76dp"
+        android:text="View Details"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

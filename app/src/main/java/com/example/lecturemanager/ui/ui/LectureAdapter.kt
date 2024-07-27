@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.lecturemanager.R
 import com.example.lecturemanager.ui.home.datapackage.User
 
-
 class LectureAdapter(private val onDeleteClickListener: OnDeleteClickListener) : ListAdapter<User, LectureAdapter.LectureViewHolder>(LectureDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LectureViewHolder {

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="3000dp"
     android:padding="16dp"
-    android:background="@drawable/curved_bottomsheet">
+    android:background="@color/darkGrey">
 
     <LinearLayout
 
@@ -12,8 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
         android:orientation="vertical"
-        android:padding="16dp"
-        android:background="@drawable/curved_bottomsheet">
+        android:padding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,7 +29,6 @@
                 android:layout_marginTop="15dp"
                 android:background="@drawable/rounded_corner"
                 android:hint="Lecture Name"
-                android:textColor="@color/black"
                 android:inputType="text"
                 android:padding="15dp"
                 />
@@ -63,7 +61,6 @@
             android:layout_marginEnd="8dp"
             android:textAlignment="center"
             android:text="Date"
-            android:textColor="@color/black"
             android:textSize="20sp"
              />
 
@@ -98,7 +95,7 @@
             android:layout_marginEnd="8dp"
             android:textAlignment="center"
             android:entries="@array/days"
-            android:textColor="@color/black"
+            android:outlineSpotShadowColor="@color/darkGrey"
             android:textSize="20sp" />
 
         <Button
@@ -133,7 +130,6 @@
             android:layout_marginEnd="8dp"
             android:textAlignment="center"
             android:text="Start time"
-            android:textColor="@color/black"
             android:textSize="20sp"
             />
 
@@ -170,7 +166,6 @@
             android:textAlignment="center"
             android:text="End time"
             android:textSize="20sp"
-            android:textColor="@color/black"
             />
 
         <Button

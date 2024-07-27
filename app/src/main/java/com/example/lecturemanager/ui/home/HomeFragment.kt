@@ -4,6 +4,7 @@ package com.example.lecturemanager.ui.home
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +35,8 @@ import java.util.Calendar
 import java.util.Locale
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.text.ParseException
+import java.util.Date
 
 class HomeFragment : Fragment(), LectureAdapter.OnDeleteClickListener, DaysAdapter.OnDayClickListener {
 
@@ -232,3 +235,15 @@ private fun convertToMillis(date: String, time: String): Long {
     val parsedDate = format.parse(dateTime)
     return parsedDate?.time ?: 0
 }
+
+//private fun convertToMillis(date: String, time: String): Long {
+//    return try {
+//        val dateTime = "$date $time"
+//        val format = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+//        val parsedDate = format.parse(dateTime)
+//        parsedDate?.time ?: 0L
+//    } catch (e: ParseException) {
+//        Log.e("HomeFragment", "Date parsing error: ${e.message}")
+//        0L
+//    }
+//}

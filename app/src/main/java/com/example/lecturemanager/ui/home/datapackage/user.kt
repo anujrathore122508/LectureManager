@@ -2,6 +2,8 @@ package com.example.lecturemanager.ui.home.datapackage
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 @Entity(tableName = "Lecture")
 data class User(
@@ -16,6 +18,4 @@ data class User(
     val presentCount: Int = 0,         // New field for present count
     val absentCount: Int = 0           // New field for absent count
 )
-
-
 
