@@ -3,6 +3,7 @@ package com.example.lecturemanager.ui.home
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -36,7 +37,7 @@ import java.util.Locale
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.text.ParseException
-import java.util.Date
+
 
 class HomeFragment : Fragment(), LectureAdapter.OnDeleteClickListener, DaysAdapter.OnDayClickListener {
 
@@ -54,6 +55,13 @@ class HomeFragment : Fragment(), LectureAdapter.OnDeleteClickListener, DaysAdapt
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+
+        val sharedPreferences = requireContext().getSharedPreferences("LectureManagerPrefs", Context.MODE_PRIVATE)
+        val firstName = sharedPreferences.getString("FIRST_NAME", "User")
+
+        binding.welcomeTextView.text = "Hello , $firstName!".capitalize()
+
 
         adapter = LectureAdapter(this)
         val recyclerView: RecyclerView = root.findViewById(R.id.recyclerView)
@@ -94,7 +102,7 @@ class HomeFragment : Fragment(), LectureAdapter.OnDeleteClickListener, DaysAdapt
 
     private fun showAddLectureBottomSheet() {
         val dialog = BottomSheetDialog(requireContext())
-        val view = layoutInflater.inflate(R.layout.add_lecture_bottomsheet, null)
+        val view = layoutInflater.inflate(R.layout.add_lecture_bottomsheet,null)
 
         val lectureNameEditText = view.findViewById<EditText>(R.id.editText)
         lectureNameEditText.requestFocus()
@@ -118,6 +126,9 @@ class HomeFragment : Fragment(), LectureAdapter.OnDeleteClickListener, DaysAdapt
         val btnEndTimePicker = view.findViewById<Button>(R.id.idBtnEndTime)
         btnEndTimePicker.setOnClickListener {
             timePicker(view, lectureEndTimeTextView)
+        }
+        dialog.setOnCancelListener {
+            dialog.dismiss()
         }
         val btnSubmit = view.findViewById<Button>(R.id.idBtnSubmit)
         btnSubmit.setOnClickListener {
@@ -160,10 +171,61 @@ class HomeFragment : Fragment(), LectureAdapter.OnDeleteClickListener, DaysAdapt
             }
         }
 
-        dialog.setCancelable(false)
+        dialog.setCancelable(true)
         dialog.setContentView(view)
         dialog.show()
     }
+
+    private fun showEditLectureBottomSheet(lecture: User) {
+        val dialog = BottomSheetDialog(requireContext())
+        val view = layoutInflater.inflate(R.layout.add_lecture_bottomsheet, null)
+
+        // Initialize views
+        val lectureNameEditText = view.findViewById<EditText>(R.id.editText)
+        val lectureDateTextView = view.findViewById<TextView>(R.id.date)
+        val btnDatePicker = view.findViewById<Button>(R.id.idBtnDatePicker)
+        val daySpinner = view.findViewById<Spinner>(R.id.daySpinner)
+        val lectureStartTimeTextView = view.findViewById<TextView>(R.id.StartTime)
+        val btnStartTimePicker = view.findViewById<Button>(R.id.idBtnStartTime)
+        val lectureEndTimeTextView = view.findViewById<TextView>(R.id.endtime)
+        val btnEndTimePicker = view.findViewById<Button>(R.id.idBtnEndTime)
+        val btnSubmit = view.findViewById<Button>(R.id.idBtnSubmit)
+
+        // Set existing lecture details
+        lectureNameEditText.setText(lecture.lectureName)
+        lectureDateTextView.text = lecture.lectureDate
+        daySpinner.setSelection(getDaysOfWeek().indexOf(lecture.lectureDay))
+        lectureStartTimeTextView.text = lecture.lectureStartTime
+        lectureEndTimeTextView.text = lecture.lectureEndTime
+
+        // Setup listeners
+        btnDatePicker.setOnClickListener { showDatePicker(view, lectureDateTextView) }
+        btnStartTimePicker.setOnClickListener { timePicker(view, lectureStartTimeTextView) }
+        btnEndTimePicker.setOnClickListener { timePicker(view, lectureEndTimeTextView) }
+
+        btnSubmit.setOnClickListener {
+            val updatedLecture = lecture.copy(
+                lectureName = lectureNameEditText.text.toString(),
+                lectureDate = lectureDateTextView.text.toString(),
+                lectureDay = daySpinner.selectedItem.toString(),
+                lectureStartTime = lectureStartTimeTextView.text.toString(),
+                lectureEndTime = lectureEndTimeTextView.text.toString()
+            )
+            homeViewModel.updateLecture(updatedLecture).observe(viewLifecycleOwner, Observer { success ->
+                if (success) {
+                    Toast.makeText(context, "Lecture updated successfully", Toast.LENGTH_SHORT).show()
+                    // Refresh your lecture list or perform other actions
+                } else {
+                    Toast.makeText(context, "Failed to update lecture", Toast.LENGTH_SHORT).show()
+                }
+                dialog.dismiss()
+            })
+        }
+
+        dialog.setContentView(view)
+        dialog.show()
+    }
+
 
     override fun onDeleteClicked(position: Int) {
         val userDao = DatabaseBuilder.getInstance(requireContext()).userDao()
@@ -179,6 +241,13 @@ class HomeFragment : Fragment(), LectureAdapter.OnDeleteClickListener, DaysAdapt
             userDao.delete(deletedItem)
         }
     }
+
+    override fun onEditClicked(position: Int) {
+        val lecture = adapter.currentList[position]
+        showEditLectureBottomSheet(lecture)
+    }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -229,21 +298,21 @@ private fun setupDaySpinner(view: View, spinner: Spinner) {
     spinner.adapter = adapter
 }
 
-private fun convertToMillis(date: String, time: String): Long {
+private fun convertToMillis(date: String?, time: String?): Long {
+    if (date.isNullOrEmpty() || time.isNullOrEmpty()) {
+        Log.e("HomeFragment", "Date or time is null or empty. Date: $date, Time: $time")
+        return 0
+    }
+
     val dateTime = "$date $time"
     val format = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
-    val parsedDate = format.parse(dateTime)
-    return parsedDate?.time ?: 0
+    return try {
+        val parsedDate = format.parse(dateTime)
+        parsedDate?.time ?: 0
+    } catch (e: ParseException) {
+        Log.e("HomeFragment", "Date parse exception: ${e.message} for dateTime: $dateTime")
+        0
+    }
 }
 
-//private fun convertToMillis(date: String, time: String): Long {
-//    return try {
-//        val dateTime = "$date $time"
-//        val format = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
-//        val parsedDate = format.parse(dateTime)
-//        parsedDate?.time ?: 0L
-//    } catch (e: ParseException) {
-//        Log.e("HomeFragment", "Date parsing error: ${e.message}")
-//        0L
-//    }
-//}
+

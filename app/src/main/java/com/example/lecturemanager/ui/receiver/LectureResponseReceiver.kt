@@ -3,16 +3,10 @@ package com.example.lecturemanager.ui.receiver
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.util.Log
-import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.WorkManager
-import com.example.lecturemanager.R
-import com.example.lecturemanager.ui.home.dao.UserDao
-import com.example.lecturemanager.ui.home.database.AppDatabase
 import com.example.lecturemanager.ui.home.database.DatabaseBuilder
 import com.example.lecturemanager.ui.home.datapackage.Attendance
 import kotlinx.coroutines.CoroutineScope

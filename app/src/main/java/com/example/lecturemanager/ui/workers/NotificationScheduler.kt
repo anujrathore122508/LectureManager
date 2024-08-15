@@ -19,8 +19,8 @@ object NotificationScheduler {
 
         if (delay > 0) {
             val constraints = Constraints.Builder()
-                .setRequiresBatteryNotLow(true)
-                .setRequiresStorageNotLow(true)
+                .setRequiresBatteryNotLow(false)
+                .setRequiresStorageNotLow(false)
                 .build()
 
             val notificationWork = OneTimeWorkRequestBuilder<LectureNotificationWorker>()
@@ -40,8 +40,8 @@ object NotificationScheduler {
 
         if (delay > 0) {
             val constraints = Constraints.Builder()
-                .setRequiresBatteryNotLow(true)
-                .setRequiresStorageNotLow(true)
+                .setRequiresBatteryNotLow(false)
+                .setRequiresStorageNotLow(false)
                 .build()
 
             val notificationWork = PeriodicWorkRequestBuilder<LectureNotificationWorker>(repeatInterval, TimeUnit.MILLISECONDS)
@@ -98,3 +98,4 @@ object NotificationScheduler {
         return currentCalendar.timeInMillis
     }
 }
+

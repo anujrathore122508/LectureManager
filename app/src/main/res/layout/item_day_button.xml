@@ -12,6 +12,7 @@ android:padding="8dp">
     android:layout_height="wrap_content"
     android:text="Day"
     android:padding="8dp"
-    android:textSize="14sp" />
+    android:textSize="14sp"
+    android:stateListAnimator="@anim/nav_default_pop_enter_anim"/>
 
 </LinearLayout>

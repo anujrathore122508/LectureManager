@@ -17,7 +17,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.lecturemanager.databinding.FragmentAttendanceBinding
 import com.example.lecturemanager.ui.home.datapackage.AttendanceSummary
 import com.example.lecturemanager.ui.ui.ui.login.AttendanceLectureAdapter
-import com.example.lecturemanager.ui.ui.ui.login.DetailedAttendanceAdapter
+import com.example.lecturemanager.ui.ui.ui.login.VerticalSpaceItemDecoration
+
 
 class AttendanceFragment : Fragment() {
 
@@ -33,7 +34,6 @@ class AttendanceFragment : Fragment() {
         _binding = FragmentAttendanceBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // Initialize RecyclerView adapter
         adapter = AttendanceLectureAdapter { attendanceSummary ->
             showDetailedView(attendanceSummary)
         }
@@ -42,6 +42,7 @@ class AttendanceFragment : Fragment() {
         val recyclerView: RecyclerView = binding.attendanceRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = adapter
+        recyclerView.addItemDecoration(VerticalSpaceItemDecoration(25)) // 16dp space between items
 
         // Observe attendance summary data
         attendanceViewModel.attendanceSummary.observe(viewLifecycleOwner) { summary ->
@@ -54,10 +55,7 @@ class AttendanceFragment : Fragment() {
             attendanceUpdateReceiver, IntentFilter("ACTION_UPDATE_ATTENDANCE")
         )
 
-        // Set up Back button
-        binding.backButton.setOnClickListener {
-            showSummaryView()
-        }
+
 
         return root
     }
@@ -81,34 +79,12 @@ class AttendanceFragment : Fragment() {
         LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(attendanceUpdateReceiver)
         _binding = null
     }
-
     private fun showDetailedView(attendanceSummary: AttendanceSummary) {
-        binding.lectureName.text = attendanceSummary.lectureName
-
-        // Set up the detailed attendance RecyclerView
-        val detailedAdapter = DetailedAttendanceAdapter(emptyList())
-        binding.detailsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.detailsRecyclerView.adapter = detailedAdapter
-
-        // Fetch and observe detailed attendance data
-        attendanceViewModel.getDetailedAttendanceForLecture(attendanceSummary.lectureId)
-        attendanceViewModel.detailedAttendance.observe(viewLifecycleOwner) { detailedList ->
-            if (detailedList != null) {
-                Log.d("AttendanceFragment", "Detailed attendance: $detailedList")
-                detailedAdapter.updateData(detailedList)
-            } else {
-                Log.d("AttendanceFragment", "No detailed attendance data found")
-            }
+        val intent = Intent(requireContext(), AttendanceDetailsActivity::class.java).apply {
+            putExtra("LECTURE_ID", attendanceSummary.lectureId)
+            putExtra("LECTURE_NAME",  attendanceSummary.lectureName)
         }
-
-        // Show the detailed view and hide the summary view
-        binding.attendanceRecyclerView.visibility = View.GONE
-        binding.detailsLayout.visibility = View.VISIBLE
+        startActivity(intent)
     }
 
-    private fun showSummaryView() {
-        // Show the summary view and hide the detailed view
-        binding.detailsLayout.visibility = View.GONE
-        binding.attendanceRecyclerView.visibility = View.VISIBLE
-    }
 }

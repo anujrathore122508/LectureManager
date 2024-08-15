@@ -3,35 +3,25 @@ package com.example.lecturemanager
 import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getString
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.room.Room
-import androidx.work.Configuration
-import androidx.work.WorkManager
 import com.example.lecturemanager.databinding.ActivityMainBinding
-import com.example.lecturemanager.ui.home.database.AppDatabase
-import com.example.lecturemanager.ui.home.database.DatabaseBuilder
-//import com.example.lecturemanager.ui.home.database.DatabaseBuilder
+import com.example.lecturemanager.ui.ui.UsesActivity
+import com.example.lecturemanager.ui.ui.WelcomePageActivity
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
-import io.grpc.Context
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
@@ -49,9 +39,16 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+        // Check SharedPreferences to decide which activity to show
+        checkAndHandleFirstLaunch()
+
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
+        val navController = navHostFragment.navController
+
         val navView: BottomNavigationView = binding.navView
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
@@ -77,6 +74,24 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+    private fun checkAndHandleFirstLaunch() {
+        val sharedPreferences = getSharedPreferences("LectureManagerPrefs", MODE_PRIVATE)
+        val isFirstTime = sharedPreferences.getBoolean("IS_FIRST_TIME", true)
+        val isUsesShown = sharedPreferences.getBoolean("IS_USES_SHOWN", false)
+
+        if (isFirstTime) {
+            // Start WelcomePageActivity
+            val intent = Intent(this, WelcomePageActivity::class.java)
+            startActivity(intent)
+            finish()
+        } else if (!isUsesShown) {
+            // Start UsesActivity if it hasn't been shown yet
+            val intent = Intent(this, UsesActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+
     private fun askNotificationPermission() {
         // This is only necessary for API level >= 33 (TIRAMISU)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -115,8 +130,9 @@ class MainActivity : AppCompatActivity() {
                 description = descriptionText
             }
             val notificationManager: NotificationManager =
-                getSystemService(android.content.Context.NOTIFICATION_SERVICE) as NotificationManager
+                getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
     }
+
 }

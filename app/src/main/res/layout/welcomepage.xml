@@ -18,7 +18,7 @@
             android:layout_marginStart="70dp"
             android:layout_marginBottom="700dp"
             android:src="@drawable/aaaaasssssssaaaaaa"
-            />
+            android:contentDescription="image"/>
 
         <TextView
             android:id="@+id/titleTextView"
@@ -43,9 +43,9 @@
             android:inputType="text"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
+            android:textAllCaps="true"
             android:background="@drawable/rounded_corner"
-            android:padding="18dp"
-            />
+            android:padding="18dp" />
 
         <EditText
             android:id="@+id/lastNameEditText"
@@ -57,6 +57,7 @@
             android:inputType="text"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
+            android:textAllCaps="true"
             android:background="@drawable/rounded_corner"
             android:padding="18dp"/>
 
@@ -68,8 +69,7 @@
             android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true"
             android:text="Submit"
-            android:background="@drawable/rounded_corner"
-            />
+            android:background="@drawable/rounded_corner" />
 
     </RelativeLayout>
 

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.ui.UsesActivity"
+    android:background="@drawable/welcomepage_background">
+
+  <!-- Vertical guideline for fixed position -->
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/guidelineTop"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintGuide_begin="140dp"
+      android:orientation="horizontal" />
+
+  <!-- ImageView -->
+  <ImageView
+      android:id="@+id/imageView"
+      android:layout_width="250dp"
+      android:layout_height="200dp"
+      android:src="@drawable/aaaaasssssssaaaaaa"
+      app:layout_constraintBottom_toTopOf="@+id/howToUseTextView"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.1" />
+
+  <!-- TextView "How To Use" -->
+  <TextView
+      android:id="@+id/howToUseTextView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="16dp"
+      android:text="How To Use"
+      android:textColor="@android:color/black"
+      android:textSize="24sp"
+      android:textStyle="bold"
+      app:layout_constraintBottom_toTopOf="@+id/instructionsContainer"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/guidelineTop" />
+
+  <!-- LinearLayout for instructions and dividers -->
+  <LinearLayout
+      android:id="@+id/instructionsContainer"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:orientation="vertical"
+      android:padding="16dp"
+      app:layout_constraintBottom_toTopOf="@+id/continueButton"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/howToUseTextView">
+
+    <!-- Instructions and dividers will be added here programmatically -->
+  </LinearLayout>
+
+  <!-- Continue Button -->
+  <Button
+      android:id="@+id/continueButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Continue"
+      android:layout_marginBottom="60dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

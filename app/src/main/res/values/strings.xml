@@ -33,4 +33,7 @@
     <string name="lecture_channel_name">Lecture Notifications</string>
     <string name="lecture_channel_description">Notifications for upcoming lectures</string>
     <string name="back">Back</string>
+
+
+
 </resources>

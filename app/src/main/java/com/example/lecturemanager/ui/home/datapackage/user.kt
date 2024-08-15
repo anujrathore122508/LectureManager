@@ -2,8 +2,6 @@ package com.example.lecturemanager.ui.home.datapackage
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 @Entity(tableName = "Lecture")
 data class User(

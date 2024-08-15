@@ -3,7 +3,6 @@ package com.example.lecturemanager.ui.workers
 import android.Manifest
 import android.app.PendingIntent
 import android.content.Context
-
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.util.Log
@@ -35,6 +34,7 @@ class LectureNotificationWorker(
     override fun doWork(): Result {
         val lectureId = inputData.getLong("lectureId", -1)
         val startTimeMillis = inputData.getLong("startTimeMillis", 0L)
+
 
         if (lectureId == -1L || startTimeMillis == 0L) {
             Log.e("LectureNotificationWorker", "Invalid input data: lectureId = $lectureId, startTimeMillis = $startTimeMillis")
@@ -91,7 +91,7 @@ class LectureNotificationWorker(
 // Set dynamic content if needed
                 notificationLayout.setTextViewText(R.id.notification_title, "Lecture Reminder!")
 
-                notificationLayout.setTextViewText(R.id.notification_text, "Your Lecture '${user?.lectureName}' is about to start in 5 minutes.")
+                notificationLayout.setTextViewText(R.id.notification_text, "Your Lecture '${user.lectureName}' is about to start in 5 minutes.")
 
 // Set intents for buttons
                 notificationLayout.setOnClickPendingIntent(R.id.notification_accept, acceptPendingIntent)
@@ -112,6 +112,7 @@ class LectureNotificationWorker(
             }
         }
 
+
         // Reschedule the notification for the next week only if the current time is before the start time
         if (System.currentTimeMillis() < startTimeMillis) {
             rescheduleWeeklyNotification(lectureId, startTimeMillis)
@@ -119,7 +120,6 @@ class LectureNotificationWorker(
 
         return Result.success()
     }
-
     private fun rescheduleWeeklyNotification(lectureId: Long, startTimeMillis: Long) {
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = startTimeMillis
@@ -147,6 +147,8 @@ class LectureNotificationWorker(
         }
     }
 
+
+
     private fun calculateNextNotificationTimeMillis(calendar: Calendar, dayOfWeek: Int, currentTimeMillis: Long): Long {
         val currentDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
         var daysToAdd = (dayOfWeek - currentDayOfWeek).absoluteValue
@@ -162,3 +164,4 @@ class LectureNotificationWorker(
         return calendar.timeInMillis
     }
 }
+

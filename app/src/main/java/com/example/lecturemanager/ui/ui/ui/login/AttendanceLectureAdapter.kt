@@ -2,12 +2,11 @@ package com.example.lecturemanager.ui.ui.ui.login
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lecturemanager.databinding.ListItemAttendanceBinding
 
 import com.example.lecturemanager.ui.home.datapackage.AttendanceSummary
+
 
 class AttendanceLectureAdapter(private val onViewDetailsClick: (AttendanceSummary) -> Unit) : RecyclerView.Adapter<AttendanceLectureAdapter.ViewHolder>() {
 
@@ -38,9 +37,16 @@ class AttendanceLectureAdapter(private val onViewDetailsClick: (AttendanceSummar
             binding.TotalAbsent.text = "Absent: ${item.totalAbsent}"
             binding.TotalLectures.text = "Total Lectures: ${item.totalLectures}"
 
+            // Set the progress for the circular progress bar
+            binding.circularProgressBar.setProgress(item.attendancePercentage)
+
+            // Ensure the color is updated
+            binding.circularProgressBar.updateColor()
+
             binding.viewDetailsButton.setOnClickListener {
                 onViewDetailsClick(item)
             }
         }
     }
 }
+

@@ -29,6 +29,7 @@ class AttendanceViewModel(application: Application) : AndroidViewModel(applicati
                 calculateAttendanceSummary(users)
             }
         }
+
     }
 
     private suspend fun calculateAttendanceSummary(users: List<User>) {
@@ -55,6 +56,7 @@ class AttendanceViewModel(application: Application) : AndroidViewModel(applicati
             }
         }
     }
+
 
     fun getDetailedAttendanceForLecture(lectureId: Long) {
         viewModelScope.launch {

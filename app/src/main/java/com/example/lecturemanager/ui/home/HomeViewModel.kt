@@ -27,6 +27,21 @@ class HomeViewModel(private val userDao: UserDao) : ViewModel() {
         }
         return result
     }
+    fun deleteLecture(user: User) {
+        viewModelScope.launch {
+            userDao.deleteLecture(user)
+        }
+    }
+    fun updateLecture(lecture: User): LiveData<Boolean> {
+        return liveData {
+            val result = withContext(Dispatchers.IO) {
+                userDao.update(lecture)
+                true // or false based on the success of the update operation
+            }
+            emit(result)
+        }
+    }
+
 
 }
 

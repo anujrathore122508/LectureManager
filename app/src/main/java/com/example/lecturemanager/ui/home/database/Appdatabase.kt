@@ -24,10 +24,10 @@ object DatabaseBuilder {
             var instance = INSTANCE
             if (instance == null) {
                 instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    AppDatabase::class.java,
-                    "app_database"
-                ).fallbackToDestructiveMigration()
+                                context.applicationContext,
+                                AppDatabase::class.java,
+                                "app_database"
+                            ).fallbackToDestructiveMigration(false)
                     .build()
                 INSTANCE = instance
             }
