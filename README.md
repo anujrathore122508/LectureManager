@@ -13,8 +13,7 @@ Features:
 4. View detailed attendance records.
 
 APK Download:
-You can download the APK file from this link - https://github.com/anujrathore122508/LectureManager/blob/main/Lecture_Managerapp-debug.apk
-
+You can download the APK file from this link - https://github.com/anujrathore122508/LectureManager/releases/tag/v1.0
 Installation:
 1. Download the APK from the link above.
 2. Enable Install from Unknown Sources on your Android device.
